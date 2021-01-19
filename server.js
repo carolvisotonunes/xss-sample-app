@@ -6,6 +6,8 @@ const port = 3000;
 const app = express();
 
 let reviews = [];
+app.set('views', './templates');
+app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 app.use(session({
@@ -19,10 +21,8 @@ app.use(session({
 
 app.get('/', function (req, res) {
   if (req.query.newReview) reviews.push(req.query.newReview);
-  const formattedReviews = reviews.map((review)=> `<dt>User</dt><dd>${review}</dd>`).join(' ');
-  const template = fs.readFileSync('./templates/index.html', 'utf8');
-  const view = template.replace('$reviews$', formattedReviews);
-  res.send(view);
+
+  res.render('index', {reviews});
 });
 
 app.listen(port, () => console.log(`The server is listening at http://localhost:${port}`));

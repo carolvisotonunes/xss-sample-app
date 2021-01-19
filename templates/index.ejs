@@ -51,7 +51,7 @@
 
         searchResult.style.display = "block";
 
-        searchTerm.innerHTML = keyword.value;
+        searchTerm.innerText = keyword.value;
 
         //fetching results related to the keyword value from the server
 
@@ -98,7 +98,9 @@
       <hr>
       <h2>Comments</h2>
       <dl>
-        $reviews$        
+        <% reviews.forEach(review => { %>        //👈 new code
+                  <dt>User</dt><dd><%= review %></dd>
+                <% }); %>
       </dl>
     </section>
   </body>
